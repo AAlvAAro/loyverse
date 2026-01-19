@@ -43,3 +43,12 @@
 
 # VCR cassettes
 /spec/fixtures/vcr_cassettes/
+
+# Vendor directory for bundled gems
+/vendor/
+
+# RSpec status file
+.rspec_status
+
+# Gemfile.lock for gems
+Gemfile.lock

@@ -61,13 +61,6 @@ module LoyverseApi
       def get_by_store(store_id)
         list(store_id: store_id, auto_paginate: true)
       end
-
-      private
-
-      def format_time(time)
-        return time if time.is_a?(String)
-        time.iso8601
-      end
     end
   end
 end
