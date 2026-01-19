@@ -24,11 +24,15 @@ module LoyverseApi
         params = { limit: limit }
         params[:cursor] = cursor if cursor
 
-        auto_paginate(
-          "/categories",
-          params: params.merge(auto_paginate: auto_paginate),
-          data_key: "categories"
-        )
+        if auto_paginate
+          auto_paginate(
+            "/categories",
+            params: params,
+            data_key: "categories"
+          )
+        else
+          @client.get("/categories", params: params)
+        end
       end
       alias_method :all, :list
 
