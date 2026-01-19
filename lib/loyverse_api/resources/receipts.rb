@@ -135,13 +135,6 @@ module LoyverseApi
       def get_by_customer(customer_id)
         all_receipts.select { |receipt| receipt["customer_id"] == customer_id }
       end
-
-      private
-
-      def format_time(time)
-        return time if time.is_a?(String)
-        time.iso8601
-      end
     end
   end
 end

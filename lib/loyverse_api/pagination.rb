@@ -82,5 +82,12 @@ module LoyverseApi
         paginate(endpoint, params: params.except(:auto_paginate), data_key: data_key)
       end
     end
+
+    private
+
+    def format_time(time)
+      return time if time.is_a?(String)
+      time.iso8601
+    end
   end
 end
