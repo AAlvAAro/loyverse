@@ -65,7 +65,7 @@ module LoyverseApi
       response = yield
 
       case response.status
-      when 200, 201
+      when 200, 201, 204
         response.body
       when 400
         raise BadRequestError.new(
