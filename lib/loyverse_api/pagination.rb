@@ -76,10 +76,15 @@ module LoyverseApi
     end
 
     def auto_paginate(endpoint, params: {}, data_key:)
-      if params[:auto_paginate] == false
-        paginated_request(endpoint, params: params.except(:auto_paginate), data_key: data_key)
+      auto_paginate_flag = params[:auto_paginate]
+      cleaned_params = params.except(:auto_paginate)
+
+      if auto_paginate_flag == true
+        paginate(endpoint, params: cleaned_params, data_key: data_key)
+      elsif auto_paginate_flag == false
+        paginated_request(endpoint, params: cleaned_params, data_key: data_key)
       else
-        paginate(endpoint, params: params.except(:auto_paginate), data_key: data_key)
+        paginate(endpoint, params: cleaned_params, data_key: data_key)
       end
     end
 
