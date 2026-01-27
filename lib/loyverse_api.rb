@@ -12,6 +12,7 @@ require_relative "loyverse_api/endpoints/inventory"
 require_relative "loyverse_api/endpoints/receipts"
 require_relative "loyverse_api/endpoints/webhooks"
 require_relative "loyverse_api/endpoints/customers"
+require_relative "loyverse_api/endpoints/discounts"
 require_relative "loyverse_api/client"
 
 module LoyverseApi

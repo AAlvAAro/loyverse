@@ -251,6 +251,46 @@ client.delete_customer('customer-uuid')
 
 </details>
 
+### Discounts
+
+<details>
+<summary>Click to see Discounts examples</summary>
+
+```ruby
+# List discounts
+discounts = client.list_discounts
+
+# Get a specific discount
+discount = client.get_discount('discount-uuid')
+
+# Create a percentage discount
+percentage_discount = client.create_discount(
+  name: '10% Off',
+  discount_type: 'PERCENTAGE',
+  amount: 10.0
+)
+
+# Create a fixed amount discount
+fixed_discount = client.create_discount(
+  name: '$5 Off',
+  discount_type: 'FIXED',
+  amount: 5.0,
+  applies_to: 'RECEIPT'
+)
+
+# Update a discount
+client.update_discount(
+  'discount-uuid',
+  name: '15% Off',
+  amount: 15.0
+)
+
+# Delete a discount
+client.delete_discount('discount-uuid')
+```
+
+</details>
+
 ### Webhooks
 
 <details>
