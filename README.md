@@ -308,6 +308,34 @@ employee = client.get_employee('employee-uuid')
 
 </details>
 
+### Modifiers
+
+<details>
+<summary>Click to see Modifiers examples</summary>
+
+```ruby
+# List modifiers
+modifiers = client.list_modifiers
+
+# Get a specific modifier
+modifier = client.get_modifier('modifier-uuid')
+
+# Create a modifier with options
+new_modifier = client.create_modifier(
+  name: 'Size',
+  options: [
+    { name: 'Small', price: 0 },
+    { name: 'Medium', price: 1.0 },
+    { name: 'Large', price: 2.0 }
+  ]
+)
+
+# Delete a modifier
+client.delete_modifier('modifier-uuid')
+```
+
+</details>
+
 ### Webhooks
 
 <details>

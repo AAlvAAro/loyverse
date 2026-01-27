@@ -10,6 +10,7 @@ module LoyverseApi
     include Endpoints::Customers
     include Endpoints::Discounts
     include Endpoints::Employees
+    include Endpoints::Modifiers
 
     attr_reader :configuration
 
