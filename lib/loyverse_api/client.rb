@@ -7,6 +7,7 @@ module LoyverseApi
     include Endpoints::Inventory
     include Endpoints::Receipts
     include Endpoints::Webhooks
+    include Endpoints::Customers
 
     attr_reader :configuration
 

@@ -69,131 +69,119 @@ client = LoyverseApi::Client.new(configuration)
 
 ### Categories
 
-```ruby
-# List all categories
-categories = client.categories.list
-categories.each do |category|
-  puts "#{category['name']}: #{category['color']}"
-end
+<details>
+<summary>Click to see Categories examples</summary>
 
-# Auto-paginate through all categories
-all_categories = client.categories.list(auto_paginate: true)
+```ruby
+# List categories
+categories = client.list_categories
 
 # Get a specific category
-category = client.categories.get('category-uuid')
+category = client.get_category('category-uuid')
 
-# Create a new category
-new_category = client.categories.create(
+# Create a category
+new_category = client.create_category(
   name: 'Beverages',
   color: 'BLUE'
 )
 
 # Delete a category
-client.categories.delete('category-uuid')
+client.delete_category('category-uuid')
 ```
+
+</details>
 
 ### Items
 
+<details>
+<summary>Click to see Items examples</summary>
+
 ```ruby
-# List all items
-items = client.items.list(limit: 50)
+# List items
+items = client.list_items(limit: 50)
 
 # Get items updated after a specific date
-require 'time'
-recent_items = client.items.list(
-  updated_at_min: Time.now - (7 * 24 * 60 * 60), # Last 7 days
-  auto_paginate: true
+recent_items = client.list_items(
+  updated_at_min: Time.now - (7 * 24 * 60 * 60)
 )
 
 # Get a specific item
-item = client.items.get('item-uuid')
+item = client.get_item('item-uuid')
 
-# Create a new item with variants
-new_item = client.items.create(
+# Create an item with variants
+new_item = client.create_item(
   item_name: 'Coffee',
   category_id: 'category-uuid',
   track_stock: true,
   variants: [
     {
       sku: 'COFFEE-S',
-      barcode: '123456789',
       price: 3.50,
-      cost: 1.50,
-      option1_value: 'Small'
-    },
-    {
-      sku: 'COFFEE-L',
-      barcode: '987654321',
-      price: 5.00,
-      cost: 2.00,
-      option1_value: 'Large'
+      cost: 1.50
     }
   ]
 )
 
 # Update an item
-client.items.update(
+client.update_item(
   'item-uuid',
-  item_name: 'Premium Coffee',
-  category_id: 'new-category-uuid'
+  item_name: 'Premium Coffee'
 )
 
 # Delete an item
-client.items.delete('item-uuid')
+client.delete_item('item-uuid')
 ```
+
+</details>
 
 ### Inventory
 
-**Important**: Use the inventory endpoint for stock levels, NOT the items endpoint.
+<details>
+<summary>Click to see Inventory examples</summary>
 
 ```ruby
-# Get all inventory levels
-inventory = client.inventory.list
+# List inventory levels
+inventory = client.list_inventory
 
-# Get inventory for a specific variant
-variant_inventory = client.inventory.get_by_variant('variant-uuid')
+# Filter by variant
+variant_inventory = client.list_inventory(variant_id: 'variant-uuid')
 
-# Get inventory for a specific store
-store_inventory = client.inventory.get_by_store('store-uuid')
-
-# Get inventory updated in the last hour
-recent_inventory = client.inventory.list(
-  updated_at_min: Time.now - 3600,
-  auto_paginate: true
-)
+# Filter by store
+store_inventory = client.list_inventory(store_id: 'store-uuid')
 
 # Update inventory level
-client.inventory.update(
+client.update_inventory(
   variant_id: 'variant-uuid',
   store_id: 'store-uuid',
   in_stock: 150
 )
 ```
 
+</details>
+
 ### Receipts
 
+<details>
+<summary>Click to see Receipts examples</summary>
+
 ```ruby
-# List all receipts
-receipts = client.receipts.list(order: 'DESC')
+# List receipts
+receipts = client.list_receipts(order: 'DESC')
 
-# Get receipts for a specific store
-store_receipts = client.receipts.list(
-  store_id: 'store-uuid',
-  limit: 100
-)
+# Filter by store
+store_receipts = client.list_receipts(store_id: 'store-uuid')
 
-# Get receipts created in a date range
-receipts_by_date = client.receipts.list(
+# Filter by date range
+receipts_by_date = client.list_receipts(
   created_at_min: '2024-01-01T00:00:00Z',
-  created_at_max: '2024-01-31T23:59:59Z',
-  auto_paginate: true
+  created_at_max: '2024-01-31T23:59:59Z'
 )
 
-# Get a specific receipt by receipt number
-receipt = client.receipts.get('12345')
+# Get a specific receipt
+receipt = client.get_receipt('12345')
 
-# Create a new receipt
-new_receipt = client.receipts.create(
+# Create a receipt
+new_receipt = client.create_receipt(
   receipt_date: Time.now,
   store_id: 'store-uuid',
   line_items: [
@@ -208,79 +196,101 @@ new_receipt = client.receipts.create(
       payment_type_id: 'payment-type-uuid',
       money_amount: 20.00
     }
-  ],
-  customer_id: 'customer-uuid',
-  employee_id: 'employee-uuid',
-  note: 'Special order'
+  ]
 )
 
 # Create a refund
-refund = client.receipts.create_refund(
-  '12345', # receipt number to refund
+refund = client.create_refund(
+  '12345',
   refund_date: Time.now,
-  line_items: [
-    {
-      variant_id: 'variant-uuid',
-      quantity: 1,
-      price: 10.00
-    }
-  ],
-  payments: [
-    {
-      payment_type_id: 'payment-type-uuid',
-      money_amount: 10.00
-    }
-  ],
-  note: 'Customer requested refund'
+  line_items: [...],
+  payments: [...]
+)
+```
+
+</details>
+
+### Customers
+
+<details>
+<summary>Click to see Customers examples</summary>
+
+```ruby
+# List customers
+customers = client.list_customers
+
+# Filter by email
+customer = client.list_customers(email: 'customer@example.com')
+
+# Filter by phone
+customer = client.list_customers(phone_number: '+1234567890')
+
+# Get a specific customer
+customer = client.get_customer('customer-uuid')
+
+# Create a customer
+new_customer = client.create_customer(
+  name: 'John Doe',
+  email: 'john@example.com',
+  phone_number: '+1234567890',
+  address: '123 Main St',
+  city: 'New York',
+  postal_code: '10001'
 )
 
-# Get receipts for a specific customer (filtered client-side)
-customer_receipts = client.receipts.get_by_customer('customer-uuid')
+# Update a customer
+client.update_customer(
+  'customer-uuid',
+  name: 'Jane Doe',
+  email: 'jane@example.com'
+)
+
+# Delete a customer
+client.delete_customer('customer-uuid')
 ```
+
+</details>
 
 ### Webhooks
 
+<details>
+<summary>Click to see Webhooks examples</summary>
+
 ```ruby
-# List all webhooks
-webhooks = client.webhooks.list
+# List webhooks
+webhooks = client.list_webhooks
 
 # Get a specific webhook
-webhook = client.webhooks.get('webhook-uuid')
+webhook = client.get_webhook('webhook-uuid')
 
-# Create a new webhook
-new_webhook = client.webhooks.create(
+# Create a webhook
+new_webhook = client.create_webhook(
   url: 'https://your-server.com/webhooks/loyverse',
-  event_types: ['ORDER_CREATED', 'ITEM_UPDATED', 'INVENTORY_UPDATED'],
+  event_types: ['ORDER_CREATED', 'ITEM_UPDATED'],
   description: 'Production webhook'
 )
 
 # Delete a webhook
-client.webhooks.delete('webhook-uuid')
+client.delete_webhook('webhook-uuid')
 
-# Verify webhook signature (for OAuth 2.0 created webhooks)
-is_valid = client.webhooks.verify_signature(
-  request.raw_post,           # Raw request body
+# Verify webhook signature
+is_valid = client.verify_webhook_signature(
+  request.raw_post,
   request.headers['X-Loyverse-Signature'],
   'your_webhook_secret'
 )
 ```
 
-#### Pagination
+</details>
+
+### Pagination
 
 ```ruby
 # Get first page
-page = client.items.list(limit: 100)
+page = client.list_items(limit: 100)
 
-# Check if there are more pages
-if page.has_more?
-  # Get next page using cursor
-  next_page = client.items.list(limit: 100, cursor: page.cursor)
-end
-
-# Iterate through items in current page
-page.each do |item|
-  puts item['item_name']
-end
+# Get next page using cursor from response
+next_page = client.list_items(limit: 100, cursor: page['cursor'])
 ```
 
 ### Error Handling
@@ -289,22 +299,17 @@ The gem provides specific exception classes for different error types:
 
 ```ruby
 begin
-  item = client.items.get('invalid-uuid')
+  item = client.get_item('invalid-uuid')
 rescue LoyverseApi::NotFoundError => e
   puts "Item not found: #{e.message}"
 rescue LoyverseApi::AuthenticationError => e
   puts "Authentication failed: #{e.message}"
-rescue LoyverseApi::AuthorizationError => e
-  puts "Not authorized: #{e.message}"
 rescue LoyverseApi::RateLimitError => e
   puts "Rate limit exceeded: #{e.message}"
-  # The gem automatically retries with exponential backoff
 rescue LoyverseApi::BadRequestError => e
   puts "Bad request: #{e.message}"
   puts "Error code: #{e.code}"
   puts "Error details: #{e.details}"
-rescue LoyverseApi::ServerError => e
-  puts "Server error: #{e.message}"
 rescue LoyverseApi::Error => e
   puts "API error: #{e.message}"
 end

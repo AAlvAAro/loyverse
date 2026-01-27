@@ -24,6 +24,7 @@ RSpec.describe LoyverseApi::Client do
       expect(client).to respond_to(:list_inventory)
       expect(client).to respond_to(:list_receipts)
       expect(client).to respond_to(:list_webhooks)
+      expect(client).to respond_to(:list_customers)
     end
 
     it "uses provided configuration" do
