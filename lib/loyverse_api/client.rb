@@ -9,6 +9,7 @@ module LoyverseApi
     include Endpoints::Webhooks
     include Endpoints::Customers
     include Endpoints::Discounts
+    include Endpoints::Employees
 
     attr_reader :configuration
 

@@ -266,28 +266,45 @@ discount = client.get_discount('discount-uuid')
 # Create a percentage discount
 percentage_discount = client.create_discount(
   name: '10% Off',
-  discount_type: 'PERCENTAGE',
-  amount: 10.0
+  type: LoyverseApi::Endpoints::Discounts::TYPE_FIXED_PERCENT,
+  discount_amount: 10.0
 )
 
 # Create a fixed amount discount
 fixed_discount = client.create_discount(
   name: '$5 Off',
-  discount_type: 'FIXED',
-  amount: 5.0,
-  applies_to: 'RECEIPT'
+  type: LoyverseApi::Endpoints::Discounts::TYPE_FIXED_AMOUNT,
+  discount_amount: 5.0,
+  applies_to: LoyverseApi::Endpoints::Discounts::APPLIES_TO_RECEIPT
 )
 
 # Update a discount
 client.update_discount(
   'discount-uuid',
   name: '15% Off',
-  amount: 15.0
+  discount_amount: 15.0
 )
 
 # Delete a discount
 client.delete_discount('discount-uuid')
 ```
+
+</details>
+
+### Employees
+
+<details>
+<summary>Click to see Employees examples</summary>
+
+```ruby
+# List employees
+employees = client.list_employees
+
+# Get a specific employee
+employee = client.get_employee('employee-uuid')
+```
+
+**Note:** Employees can only be read via the API. Create, update, and delete operations must be done through the Loyverse Back Office.
 
 </details>
 
