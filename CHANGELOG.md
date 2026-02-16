@@ -1,6 +1,14 @@
 # Changelog
 
-## [0.1.0] - 2026-01-26
+## [0.2.0] - 2026-02-16
+
+### Fixed
+- Receipts resource
+
+### Changed
+- Simplified response handling to let the user customize it
+
+## [0.1.0] - 2026-02-16
 
 ### Added
 - Initial release of the Loyverse API Ruby gem

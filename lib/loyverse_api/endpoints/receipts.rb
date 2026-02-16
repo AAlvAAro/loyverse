@@ -9,46 +9,32 @@ module LoyverseApi
       end
 
       # List receipts
-      # @param receipt_numbers [Array<String, Integer>] Array of specific receipt numbers (optional)
-      # @param since_receipt_number [String, Integer] Return receipts after this number (optional)
-      # @param before_receipt_number [String, Integer] Return receipts before this number (optional)
-      # @param store_id [String] Filter by store UUID (optional)
-      # @param order [String] Sort order: "ASC" or "DESC" (default: "DESC")
-      # @param source [String] Filter by source (e.g., "POS", "API") (optional)
-      # @param updated_at_min [String, Time] Filter by minimum update time (optional)
-      # @param updated_at_max [String, Time] Filter by maximum update time (optional)
-      # @param created_at_min [String, Time] Filter by minimum creation time (optional)
-      # @param created_at_max [String, Time] Filter by maximum creation time (optional)
       # @param limit [Integer] Maximum number of results per page (default: 250)
-      # @param cursor [String] Pagination cursor for next page
+      # @param options [Hash] Optional filters
+      # @option options [Array<String, Integer>] :receipt_numbers Array of specific receipt numbers
+      # @option options [String, Integer] :since_receipt_number Return receipts after this number
+      # @option options [String, Integer] :before_receipt_number Return receipts before this number
+      # @option options [String] :store_id Filter by store UUID
+      # @option options [String] :source Filter by source (e.g., "POS", "API")
+      # @option options [String, Time] :updated_at_min Filter by minimum update time
+      # @option options [String, Time] :updated_at_max Filter by maximum update time
+      # @option options [String, Time] :created_at_min Filter by minimum creation time
+      # @option options [String, Time] :created_at_max Filter by maximum creation time
+      # @option options [String] :cursor Pagination cursor for next page
       # @return [Hash] Response with receipts array
-      def list_receipts(
-        receipt_numbers: nil,
-        since_receipt_number: nil,
-        before_receipt_number: nil,
-        store_id: nil,
-        order: "DESC",
-        source: nil,
-        updated_at_min: nil,
-        updated_at_max: nil,
-        created_at_min: nil,
-        created_at_max: nil,
-        limit: 250,
-        cursor: nil
-      )
+      def list_receipts(limit: 100, **options)
         params = {
           limit: limit,
-          order: order,
-          receipt_numbers: receipt_numbers ? Array(receipt_numbers).join(",") : nil,
-          since_receipt_number: since_receipt_number,
-          before_receipt_number: before_receipt_number,
-          store_id: store_id,
-          source: source,
-          cursor: cursor,
-          updated_at_min: format_time(updated_at_min),
-          updated_at_max: format_time(updated_at_max),
-          created_at_min: format_time(created_at_min),
-          created_at_max: format_time(created_at_max)
+          receipt_numbers: options[:receipt_numbers] ? Array(options[:receipt_numbers]).join(",") : nil,
+          since_receipt_number: options[:since_receipt_number],
+          before_receipt_number: options[:before_receipt_number],
+          store_id: options[:store_id],
+          source: options[:source],
+          cursor: options[:cursor],
+          updated_at_min: format_time(options[:updated_at_min]),
+          updated_at_max: format_time(options[:updated_at_max]),
+          created_at_min: format_time(options[:created_at_min]),
+          created_at_max: format_time(options[:created_at_max])
         }.compact
 
         get("receipts", params: params)

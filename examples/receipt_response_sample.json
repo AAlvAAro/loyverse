@@ -1,0 +1,236 @@
+{
+  "receipts": [
+    {
+      "receipt_number": "1-10131",
+      "note": null,
+      "receipt_type": "SALE",
+      "refund_for": null,
+      "order": null,
+      "created_at": "2025-07-19T07:00:02.000Z",
+      "updated_at": "2025-07-19T07:00:02.000Z",
+      "source": "point of sale",
+      "receipt_date": "2025-07-19T06:57:31.000Z",
+      "cancelled_at": null,
+      "total_money": 335.00,
+      "total_tax": 46.21,
+      "points_earned": 0.00,
+      "points_deducted": 0.00,
+      "points_balance": 0.00,
+      "customer_id": null,
+      "total_discount": 0.00,
+      "employee_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+      "store_id": "f1e2d3c4-b5a6-4978-8c9d-0e1f2a3b4c5d",
+      "pos_device_id": "d1c2b3a4-e5f6-4978-8c9d-0e1f2a3b4c5d",
+      "dining_option": "Dine In",
+      "total_discounts": [],
+      "total_taxes": [
+        {
+          "id": "c2afb81c-d75f-4f70-8acc-dd0112b37aae",
+          "type": "INCLUDED",
+          "name": "VAT",
+          "rate": 16.0,
+          "money_amount": 46.21
+        }
+      ],
+      "tip": 0.00,
+      "surcharge": 0.00,
+      "line_items": [
+        {
+          "id": "9553152a-9d9d-f0cd-f6a3-2ab6fcbd516c",
+          "item_id": "edb828f0-23a8-4755-a171-b6b8c7d13808",
+          "variant_id": "96ceec2c-5f58-4170-84fd-96c84fb6482c",
+          "item_name": "Coffee Americano",
+          "variant_name": null,
+          "sku": "10006",
+          "quantity": 1,
+          "price": 50.00,
+          "gross_total_money": 95.00,
+          "total_money": 95.00,
+          "cost": 13.05,
+          "cost_total": 13.05,
+          "line_note": null,
+          "line_taxes": [
+            {
+              "money_amount": 13.10,
+              "id": "c2afb81c-d75f-4f70-8acc-dd0112b37aae",
+              "type": "INCLUDED",
+              "name": "VAT",
+              "rate": 16.0
+            }
+          ],
+          "total_discount": 0.00,
+          "line_discounts": [],
+          "line_modifiers": [
+            {
+              "id": "22c541f2-f224-4f26-bdbe-0eecdd77aa6c",
+              "modifier_option_id": "fc5ed733-1756-48c3-b7c1-529288e869af",
+              "name": "Flavor Syrup",
+              "option": "Chocolate",
+              "price": 15.00,
+              "money_amount": 15.00
+            },
+            {
+              "id": "01e734f1-9348-46b6-a3ba-d841f2042fe9",
+              "modifier_option_id": "571d5613-d909-427e-954e-f3b9e7227101",
+              "name": "Espresso Shot",
+              "option": "Double Shot Extra",
+              "price": 15.00,
+              "money_amount": 15.00
+            },
+            {
+              "id": "d0346233-92ec-4c58-9455-cd6c55d124f7",
+              "modifier_option_id": "f044d08d-f5c7-4a5c-adf8-cfdd8bf4edfc",
+              "name": "With Milk",
+              "option": "Light",
+              "price": 15.00,
+              "money_amount": 15.00
+            }
+          ]
+        },
+        {
+          "id": "9553152a-9d9d-f0cd-f6a3-2ab6fcbd516d",
+          "item_id": "016e03e8-ec36-4ec2-81be-dfcf30820fd2",
+          "variant_id": "4267d877-ba3c-44af-ac3a-0d15692a9e16",
+          "item_name": "Espresso",
+          "variant_name": null,
+          "sku": "10009",
+          "quantity": 1,
+          "price": 40.00,
+          "gross_total_money": 55.00,
+          "total_money": 55.00,
+          "cost": 9.73,
+          "cost_total": 9.73,
+          "line_note": null,
+          "line_taxes": [
+            {
+              "money_amount": 7.59,
+              "id": "c2afb81c-d75f-4f70-8acc-dd0112b37aae",
+              "type": "INCLUDED",
+              "name": "VAT",
+              "rate": 16.0
+            }
+          ],
+          "total_discount": 0.00,
+          "line_discounts": [],
+          "line_modifiers": [
+            {
+              "id": "01e734f1-9348-46b6-a3ba-d841f2042fe9",
+              "modifier_option_id": "571d5613-d909-427e-954e-f3b9e7227101",
+              "name": "Espresso Shot",
+              "option": "Double Shot Extra",
+              "price": 15.00,
+              "money_amount": 15.00
+            }
+          ]
+        },
+        {
+          "id": "9553152a-9d9d-f0cd-f6a3-2ab6fcbd516e",
+          "item_id": "3282814e-0638-49dd-9566-7f7a485e38fc",
+          "variant_id": "7966819c-f78b-4b81-909f-f9af478cee42",
+          "item_name": "Flat White",
+          "variant_name": null,
+          "sku": "10004",
+          "quantity": 1,
+          "price": 60.00,
+          "gross_total_money": 90.00,
+          "total_money": 90.00,
+          "cost": 17.28,
+          "cost_total": 17.28,
+          "line_note": null,
+          "line_taxes": [
+            {
+              "money_amount": 12.41,
+              "id": "c2afb81c-d75f-4f70-8acc-dd0112b37aae",
+              "type": "INCLUDED",
+              "name": "VAT",
+              "rate": 16.0
+            }
+          ],
+          "total_discount": 0.00,
+          "line_discounts": [],
+          "line_modifiers": [
+            {
+              "id": "69b59738-4e7f-447d-ab1c-74aa5b67b7b1",
+              "modifier_option_id": "6d64fb54-f667-452e-bfce-c43bebdfcc9e",
+              "name": "Oat Milk",
+              "option": "Barista Oat",
+              "price": 15.00,
+              "money_amount": 15.00
+            },
+            {
+              "id": "01e734f1-9348-46b6-a3ba-d841f2042fe9",
+              "modifier_option_id": "571d5613-d909-427e-954e-f3b9e7227101",
+              "name": "Espresso Shot",
+              "option": "Double Shot Extra",
+              "price": 15.00,
+              "money_amount": 15.00
+            }
+          ]
+        },
+        {
+          "id": "9553152a-9d9d-f0cd-f6a3-2ab6fcbd516f",
+          "item_id": "b8afa0b1-0851-4225-91e2-53c670d41374",
+          "variant_id": "2caa728f-0024-4f29-ae7a-d53420c4ef4d",
+          "item_name": "Latte",
+          "variant_name": null,
+          "sku": "10000",
+          "quantity": 1,
+          "price": 65.00,
+          "gross_total_money": 95.00,
+          "total_money": 95.00,
+          "cost": 23.36,
+          "cost_total": 23.36,
+          "line_note": null,
+          "line_taxes": [
+            {
+              "money_amount": 13.11,
+              "id": "c2afb81c-d75f-4f70-8acc-dd0112b37aae",
+              "type": "INCLUDED",
+              "name": "VAT",
+              "rate": 16.0
+            }
+          ],
+          "total_discount": 0.00,
+          "line_discounts": [],
+          "line_modifiers": [
+            {
+              "id": "0c75ed60-8713-413e-bd4d-8cbc2aed78ca",
+              "modifier_option_id": "3690e2a3-6062-4cb9-bdf6-ca58aa856c21",
+              "name": "Milk Type (Included)",
+              "option": "Lactose-Free",
+              "price": 0.00,
+              "money_amount": 0.00
+            },
+            {
+              "id": "22c541f2-f224-4f26-bdbe-0eecdd77aa6c",
+              "modifier_option_id": "a60ad701-ddbe-49da-9fee-fa3d59da4e3b",
+              "name": "Flavor Syrup",
+              "option": "Marzipan",
+              "price": 15.00,
+              "money_amount": 15.00
+            },
+            {
+              "id": "01e734f1-9348-46b6-a3ba-d841f2042fe9",
+              "modifier_option_id": "571d5613-d909-427e-954e-f3b9e7227101",
+              "name": "Espresso Shot",
+              "option": "Double Shot Extra",
+              "price": 15.00,
+              "money_amount": 15.00
+            }
+          ]
+        }
+      ],
+      "payments": [
+        {
+          "payment_type_id": "a9dd8a31-1ff2-4418-b538-8f66cd5a5878",
+          "name": "Cash",
+          "type": "CASH",
+          "money_amount": 335.00,
+          "paid_at": "2025-07-19T06:57:31.000Z",
+          "payment_details": null
+        }
+      ]
+    }
+  ],
+  "cursor": "CPnzvouCMxDn3P-LgjNCA-H8ekjn4sjhG2ABcAc="
+}
