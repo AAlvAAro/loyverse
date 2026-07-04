@@ -13,6 +13,12 @@
 ### Changed
 - Simplified response handling to let the user customize it
 
+### Added
+- README section on timezones: the Loyverse API is always UTC, so filtering
+  for "today" requires converting the local business day to UTC yourself.
+  Added `examples/receipts_for_local_day.rb` showing the conversion,
+  pagination, and totaling with cancelled receipts excluded.
+
 ## [0.1.0] - 2026-02-16
 
 ### Added
