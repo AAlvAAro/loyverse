@@ -449,10 +449,11 @@ local day running from `06:00Z` to `06:00Z` the next day, not `00:00Z` to
 `00:00Z`:
 
 ```ruby
+require 'date' # needed for Date.new in plain Ruby
+
 # Store operates on CST (UTC-6, no DST as of Mexico's 2022 reform)
 offset = "-06:00"
 local_day = Date.new(2026, 7, 4)
-
 day_start_utc = Time.new(local_day.year, local_day.month, local_day.day, 0, 0, 0, offset).utc
 day_end_utc   = day_start_utc + (24 * 60 * 60)
 
