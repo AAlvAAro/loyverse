@@ -9,8 +9,8 @@ rescue LoadError
 end
 
 require 'date'
+require 'time'
 require 'loyverse_api'
-
 # Demonstrates computing a *local* business day's boundaries and converting
 # them to UTC before querying receipts — the Loyverse API only understands
 # UTC, so a naive "00:00 to 24:00 UTC" window does not line up with a local
