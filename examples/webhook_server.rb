@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
+require 'dotenv/load'
 require 'loyverse_api'
 require 'webrick'
 require 'json'

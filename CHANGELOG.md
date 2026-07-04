@@ -4,6 +4,11 @@
 
 ### Fixed
 - Receipts resource
+- `list_receipts` no longer sends an `order` query param by default — the live
+  Loyverse API silently returns an empty `receipts` array whenever `order` is
+  present (any value), so results were always empty even when matching receipts
+  existed. Omitting it returns receipts newest-first already. `order` can still
+  be passed explicitly, but be aware it currently breaks the request upstream.
 
 ### Changed
 - Simplified response handling to let the user customize it

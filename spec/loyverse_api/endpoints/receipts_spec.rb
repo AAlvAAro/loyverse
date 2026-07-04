@@ -34,12 +34,18 @@ RSpec.describe LoyverseApi::Endpoints::Receipts do
     let(:response) { instance_double(Faraday::Response, status: 200, body: { "receipts" => [] }) }
 
     it "lists receipts with default parameters" do
-      expect(connection).to receive(:get).with("receipts", { limit: 250, order: "DESC" }).and_return(response)
+      expect(connection).to receive(:get).with("receipts", { limit: 250 }).and_return(response)
 
       client.list_receipts
     end
 
-    it "accepts custom limit and order" do
+    it "omits order by default (the Loyverse API returns an empty result when order is present)" do
+      expect(connection).to receive(:get).with("receipts", hash_excluding(:order)).and_return(response)
+
+      client.list_receipts
+    end
+
+    it "accepts custom limit and passes order through only when explicitly given" do
       expect(connection).to receive(:get).with("receipts", { limit: 100, order: "ASC" }).and_return(response)
 
       client.list_receipts(limit: 100, order: "ASC")

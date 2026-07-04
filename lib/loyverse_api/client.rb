@@ -42,26 +42,63 @@ module LoyverseApi
     end
 
     def get(path, params: {})
-        response = connection.get(path, params)
-        response
+      perform_request { connection.get(path, params) }
     end
 
     def post(path, body: {})
-        response = connection.post(path, body)
-        response
+      perform_request { connection.post(path, body) }
     end
 
     def put(path, body: {})
-        response = connection.put(path, body)
-        response
+      perform_request { connection.put(path, body) }
     end
 
     def delete(path)
-        response = connection.delete(path)
-        response
+      perform_request { connection.delete(path) }
     end
 
     private
+
+    def perform_request
+      handle_response(yield)
+    rescue Faraday::TimeoutError
+      raise Error, "Request timeout"
+    rescue Faraday::ConnectionFailed
+      raise Error, "Connection failed"
+    end
+
+    def handle_response(response)
+      case response.status
+      when 204
+        nil
+      when 200..299
+        response.body
+      when 400
+        raise_api_error(BadRequestError, response.body, "Bad request")
+      when 401
+        raise_api_error(AuthenticationError, response.body, "Authentication failed")
+      when 403
+        raise_api_error(AuthorizationError, response.body, "Access forbidden")
+      when 404
+        raise_api_error(NotFoundError, response.body, "Not found")
+      when 429
+        raise_api_error(RateLimitError, response.body, "Rate limit exceeded")
+      when 500..599
+        raise_api_error(ServerError, response.body, "Server error occurred")
+      else
+        raise_api_error(ApiError, response.body, "Unknown error occurred")
+      end
+    end
+
+    def raise_api_error(error_class, body, default_message)
+      error = body.is_a?(Hash) ? body["error"] : nil
+
+      message = (error.is_a?(Hash) && error["message"]) || (body.is_a?(Hash) && body["message"]) || default_message
+      code = error.is_a?(Hash) ? error["code"] : nil
+      details = error.is_a?(Hash) ? error["details"] : nil
+
+      raise error_class.new(message, code: code, details: details)
+    end
 
     # Formats time values to ISO 8601 format for Loyverse API
     #

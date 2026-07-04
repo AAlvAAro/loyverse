@@ -9,8 +9,15 @@ module LoyverseApi
       end
 
       # List receipts
+      #
+      # Note: as of this writing, the Loyverse API silently returns an empty
+      # `receipts` array whenever the `order` query param is present, regardless
+      # of its value. Omitting it returns receipts newest-first already, so
+      # `order` is left unset unless the caller explicitly requests it.
+      #
       # @param limit [Integer] Maximum number of results per page (default: 250)
       # @param options [Hash] Optional filters
+      # @option options [String] :order Sort order, "ASC" or "DESC" (omitted by default; see note above)
       # @option options [Array<String, Integer>] :receipt_numbers Array of specific receipt numbers
       # @option options [String, Integer] :since_receipt_number Return receipts after this number
       # @option options [String, Integer] :before_receipt_number Return receipts before this number
@@ -22,9 +29,10 @@ module LoyverseApi
       # @option options [String, Time] :created_at_max Filter by maximum creation time
       # @option options [String] :cursor Pagination cursor for next page
       # @return [Hash] Response with receipts array
-      def list_receipts(limit: 100, **options)
+      def list_receipts(limit: 250, **options)
         params = {
           limit: limit,
+          order: options[:order],
           receipt_numbers: options[:receipt_numbers] ? Array(options[:receipt_numbers]).join(",") : nil,
           since_receipt_number: options[:since_receipt_number],
           before_receipt_number: options[:before_receipt_number],
