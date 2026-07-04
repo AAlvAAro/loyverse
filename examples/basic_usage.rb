@@ -1,7 +1,13 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
-require 'dotenv/load'
+
+begin
+  require 'dotenv/load'
+rescue LoadError
+  # dotenv is optional; set LOYVERSE_ACCESS_TOKEN in your environment.
+end
+
 require 'loyverse_api'
 
 # This example demonstrates basic usage of the Loyverse API gem
