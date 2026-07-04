@@ -48,6 +48,19 @@ end
 client = LoyverseApi.client
 ```
 
+In practice you'll usually want to keep the token out of source control by
+reading it from an environment variable instead:
+
+```ruby
+LoyverseApi.configure do |config|
+  config.access_token = ENV['LOYVERSE_ACCESS_TOKEN']
+end
+```
+
+How that environment variable gets set (a `.env` file with a gem like
+`dotenv`, your host's secret manager, etc.) is up to your application — this
+gem itself has no opinion on it.
+
 Alternatively, you can create a client directly:
 
 ```ruby
