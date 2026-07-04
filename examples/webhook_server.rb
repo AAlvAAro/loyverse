@@ -1,6 +1,13 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
+
+begin
+  require 'dotenv/load'
+rescue LoadError
+  # dotenv is optional; set LOYVERSE_ACCESS_TOKEN / LOYVERSE_WEBHOOK_SECRET in your environment.
+end
+
 require 'loyverse_api'
 require 'webrick'
 require 'json'

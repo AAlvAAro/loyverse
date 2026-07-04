@@ -48,6 +48,19 @@ end
 client = LoyverseApi.client
 ```
 
+In practice you'll usually want to keep the token out of source control by
+reading it from an environment variable instead:
+
+```ruby
+LoyverseApi.configure do |config|
+  config.access_token = ENV['LOYVERSE_ACCESS_TOKEN']
+end
+```
+
+How that environment variable gets set (a `.env` file with a gem like
+`dotenv`, your host's secret manager, etc.) is up to your application — this
+gem itself has no opinion on it.
+
 Alternatively, you can create a client directly:
 
 ```ruby
@@ -165,8 +178,8 @@ client.update_inventory(
 <summary>Click to see Receipts examples</summary>
 
 ```ruby
-# List receipts
-receipts = client.list_receipts(order: 'DESC')
+# List receipts (newest first by default — see note below on `order`)
+receipts = client.list_receipts
 
 # Filter by store
 store_receipts = client.list_receipts(store_id: 'store-uuid')
@@ -207,6 +220,12 @@ refund = client.create_refund(
   payments: [...]
 )
 ```
+
+> **Note on `order`:** as of this writing, the live Loyverse API silently
+> returns an empty `receipts` array whenever the `order` param is present at
+> all, regardless of its value. `list_receipts` already returns results
+> newest-first without it, so leave `order` unset unless you're specifically
+> testing whether Loyverse has fixed this upstream.
 
 </details>
 
@@ -402,21 +421,54 @@ end
 
 ### Date and Time Handling
 
-All dates in the Loyverse API use ISO 8601 format. The gem automatically handles Time objects:
+All dates in the Loyverse API use ISO 8601 format and are always in UTC — the
+API itself has no concept of a "local" or store timezone. The gem
+automatically handles Time objects:
 
 ```ruby
 # Using Time objects (recommended)
-items = client.items.list(
+items = client.list_items(
   updated_at_min: Time.now - (7 * 24 * 60 * 60), # 7 days ago
   updated_at_max: Time.now
 )
 
 # Using ISO 8601 strings
-items = client.items.list(
+items = client.list_items(
   updated_at_min: '2024-01-15T00:00:00Z',
   updated_at_max: '2024-01-22T23:59:59Z'
 )
 ```
+
+#### Timezones and "today" boundaries
+
+Because every timestamp in and out of the API is UTC, filtering for "today"
+(or a shift, or a business day) requires converting *your* local day into UTC
+yourself — a naive UTC midnight-to-midnight window only matches a local
+calendar day if you're in UTC+0. For example, a store on CST (UTC-6) has its
+local day running from `06:00Z` to `06:00Z` the next day, not `00:00Z` to
+`00:00Z`:
+
+```ruby
+require 'date' # needed for Date.new in plain Ruby
+
+# Store operates on CST (UTC-6, no DST as of Mexico's 2022 reform)
+offset = "-06:00"
+local_day = Date.new(2026, 7, 4)
+day_start_utc = Time.new(local_day.year, local_day.month, local_day.day, 0, 0, 0, offset).utc
+day_end_utc   = day_start_utc + (24 * 60 * 60)
+
+receipts = client.list_receipts(
+  created_at_min: day_start_utc,
+  created_at_max: day_end_utc
+)
+```
+
+This gem doesn't wrap the Loyverse Stores endpoint and has no built-in notion
+of timezone — it's a thin API wrapper by design (see `AGENTS.md`), so if your
+account has stores across multiple timezones, your application needs to keep
+its own `store_id => timezone` mapping and compute the boundaries above per
+store. See `examples/receipts_for_local_day.rb` for a runnable version of
+this, including pagination and totals with cancelled receipts excluded.
 
 ## Configuration Options
 
