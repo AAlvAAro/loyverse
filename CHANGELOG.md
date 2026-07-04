@@ -11,7 +11,7 @@
   be passed explicitly, but be aware it currently breaks the request upstream.
 
 ### Changed
-- Simplified response handling to let the user customize it
+- `Client#get/post/put/delete` now return the parsed JSON body (or `nil` for 204) and raise typed errors for non-2xx responses
 
 ### Added
 - README section on timezones: the Loyverse API is always UTC, so filtering
